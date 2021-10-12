@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "ator")
-public class Ator{
+public class Ator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idAtor", nullable = false)
@@ -13,12 +13,17 @@ public class Ator{
     @Column(name = "nome", nullable = false)
     private String name;
 
-    public Ator(String nome) {
-        this.name = nome;
-    }
 
     public Ator() {
 
+    }
+
+    public Ator(Integer id) {
+        this.id = id;
+    }
+
+    public Ator(String nome) {
+        this.name = nome;
     }
 
     public int getId() {

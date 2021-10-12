@@ -5,11 +5,12 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
+<a href="Ator.jsp">Ator</a>
 <h2>Cadastro Ator</h2>
-<form name="cadAtor" method="POST" action="cadAtor">
+<form action="cadAtor" method="post">
     Nome<br>
     <input type="text" name="nome" value=""><br>
-    <input type="submit" value="OK">
+    <input type="submit" name="action" value="save">
 </form>
 <h1><%= "Hello World!" %>
 </h1>

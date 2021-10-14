@@ -47,20 +47,17 @@ To change this template use File | Settings | File Templates.
 
             out.println(
                     "<tr>" +
-                        "<td>");
-            i = ator.getId();
-            out.println(
-                    i +
-                        "</td>" +
+                        "<form action=\"cadAtor\" method=\"post\">" +
                         "<td>" +
-                            ator.getName() +
+                            "<input type=\"number\" name=\"id\" value=\""+ator.getId()+"\" readonly>" +
+                        "</td><td>" +
+                            "<input type=\"text\" name=\"nome\" value=\""+ator.getName()+"\">" +
+                        "</td><td>" +
+                            "<input type=\"submit\" name=\"action\" value=\"delete\">" +
+                        "</td><td>" +
+                            "<input type=\"submit\" name=\"action\" value=\"update\">" +
                         "</td>" +
-                        "<td>" +
-                            "<form action=\"cadAtor\" method=\"post\">\n" +
-                            "        <input type=\"hidden\" name=\"id\" value=\""+i+"\">\n" +
-                            "        <input type=\"submit\" name=\"action\" value=\"delete\">\n" +
-                            "    </form>" +
-                        "</td>" +
+                        "</form>" +
                     "</tr>");
         }
     %>

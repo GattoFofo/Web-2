@@ -16,42 +16,62 @@ public class CadAtor extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String action = request.getParameter("action");
+        String id;
+        PrintWriter out;
+        model.Ator ator = new model.Ator();
 
         switch (action) {
             case "save":
-                String name = request.getParameter("nome");
+                ator.setName(request.getParameter("nome"));
 
-                new Ator().save(new model.Ator(name));
+                new Ator().save(ator);
 
                 response.sendRedirect("Ator.jsp");
                 break;
             case "delete":
-                String id = request.getParameter("id");
                 Boolean deleted;
+                ator.setId(Integer.parseInt(request.getParameter("id")));
 
                 response.setContentType("text/html");
 
-                deleted = new Ator().delete(new model.Ator(Integer.valueOf(id)));
+                deleted = new Ator().delete(ator);
 
-                PrintWriter out = response.getWriter();
+                out = response.getWriter();
                 out.println(
-                    "<html>" +
-                        "<body>" +
-                            "<a href=\"Ator.jsp\">Ator</a><br>" +
-                            "id:" + id + ", deleted:" + deleted +
-                        "</body>" +
-                    "</html>");
+                        "<html>" +
+                                "<body>" +
+                                "<a href=\"Ator.jsp\">Ator</a><br>" +
+                                "id:" + request.getParameter("id") + ", deleted:" + deleted +
+                                "</body>" +
+                                "</html>");
+                break;
+            case "update":
+                ator.setId(Integer.parseInt(request.getParameter("id")));
+                ator.setName(request.getParameter("nome"));
+
+                response.setContentType("text/html");
+
+                ator = new Ator().update(ator);
+
+                out = response.getWriter();
+                out.println(
+                        "<html>" +
+                                "<body>" +
+                                "<a href=\"Ator.jsp\">Ator</a><br>" +
+                                "id:" + request.getParameter("id") + ", updated" +
+                                "</body>" +
+                                "</html>");
                 break;
             default:
                 response.setContentType("text/html");
 
                 PrintWriter writer = response.getWriter();
                 writer.println(
-                    "<html>" +
-                        "<body>" +
-                            "No action: " + action + " supported" +
-                        "</body>" +
-                    "</html>"
+                        "<html>" +
+                                "<body>" +
+                                "No action: " + action + " supported" +
+                                "</body>" +
+                                "</html>"
                 );
                 break;
         }

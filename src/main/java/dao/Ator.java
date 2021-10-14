@@ -5,8 +5,6 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
-import java.io.PrintWriter;
-
 public class Ator {
     public void save(model.Ator ator) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
@@ -48,5 +46,24 @@ public class Ator {
         }
 
         return deleted;
+    }
+
+    public model.Ator update(model.Ator ator) {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
+        EntityManager manager = factory.createEntityManager();
+        EntityTransaction transaction = manager.getTransaction();
+
+        try {
+            transaction.begin();
+            manager.merge(ator);
+            transaction.commit();
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            manager.close();
+            factory.close();
+        }
+        return ator;
     }
 }

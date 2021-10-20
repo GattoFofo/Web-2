@@ -3,26 +3,21 @@ package model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "ator")
-public class Ator {
+@Table(name = "Diretor")
+public class Diretor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idAtor", nullable = false)
+    @Column(name = "id", nullable = false)
     private int id;
 
     @Column(name = "nome", nullable = false)
-    private String name;
+    private String nome;
 
-
-    public Ator() {
+    public Diretor() {
     }
 
-    public Ator(Integer id) {
+    public Diretor(int id) {
         this.id = id;
-    }
-
-    public Ator(String nome) {
-        this.name = nome;
     }
 
     public int getId() {
@@ -33,11 +28,11 @@ public class Ator {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getNome() {
+        return nome;
     }
 }

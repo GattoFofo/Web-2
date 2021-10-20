@@ -7,7 +7,7 @@
 <%@ page import="jakarta.persistence.criteria.Root" %>
 <%@ page import="jakarta.persistence.TypedQuery" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Iterator" %>
+<%--
 Created by IntelliJ IDEA.
 User: gu12p
 Date: 07/10/2021
@@ -17,9 +17,10 @@ To change this template use File | Settings | File Templates.
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Ator</title>
 </head>
 <body>
+<a href="index.jsp">Index</a>
 <table>
     <tr>
         <th>ID</th>
@@ -27,9 +28,15 @@ To change this template use File | Settings | File Templates.
         <th>Action</th>
     </tr>
 
-    <%
-        Ator ator;
+    <tr>
+        <form action="cadAtor" method="post">
+            <td>new</td>
+            <td><input type="text" name="nome" value=""></td>
+            <td><input type="submit" name="action" value="save"></td>
+        </form>
+    </tr>
 
+    <%
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         EntityManager manager = factory.createEntityManager();
         CriteriaBuilder builder = manager.getCriteriaBuilder();
@@ -39,27 +46,20 @@ To change this template use File | Settings | File Templates.
         TypedQuery<Ator> atorTypedQuery = manager.createQuery(query);
         List<Ator> results = atorTypedQuery.getResultList();
 
-        Iterator<Ator> iterator = results.iterator();
-        int i;
-
-        while (iterator.hasNext()) {
-            ator = iterator.next();
-
-            out.println(
-                    "<tr>" +
-                        "<form action=\"cadAtor\" method=\"post\">" +
-                        "<td>" +
-                            "<input type=\"number\" name=\"id\" value=\""+ator.getId()+"\" readonly>" +
-                        "</td><td>" +
-                            "<input type=\"text\" name=\"nome\" value=\""+ator.getName()+"\">" +
-                        "</td><td>" +
-                            "<input type=\"submit\" name=\"action\" value=\"delete\">" +
-                        "</td><td>" +
-                            "<input type=\"submit\" name=\"action\" value=\"update\">" +
-                        "</td>" +
-                        "</form>" +
-                    "</tr>");
+        for (Ator ator : results) {
+    %>
+    <tr>
+        <form action="cadAtor" method="post">
+            <td><input type="number" name="id" value="<%=ator.getId()%>" readonly></td>
+            <td><input type="text" name="nome" value="<%=ator.getName()%>"></td>
+            <td><input type="submit" name="action" value="delete"></td>
+            <td><input type="submit" name="action" value="update"></td>
+        </form>
+    </tr>
+    <%
         }
+        manager.close();
+        factory.close();
     %>
 </table>
 </body>
